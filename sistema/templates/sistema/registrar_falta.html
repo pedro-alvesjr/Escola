@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Falta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef; /* Fundo suave */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            text-align: center;
+        }
+        h1 {
+            color: #8B0000; /* Cor vinho */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        }
+        label {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+            text-align: left;
+            font-weight: bold;
+        }
+        input[type="date"] {
+            padding: 10px;
+            margin: 12px 0;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+        input[type="date"]:focus {
+            border-color: #007BFF; /* Cor de foco azul */
+            outline: none;
+        }
+        button {
+            padding: 12px 20px;
+            margin-top: 20px;
+            color: white;
+            background-color: #8B0000; /* Cor vinho */
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #5c0000; /* Cor vinho escuro */
+            transform: scale(1.05); /* Aumento suave no hover */
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: bold;
+            transition: text-decoration 0.3s ease;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registrar Falta para {{ aluno.nome }}</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="data_falta">Data da Falta:</label>
+            <input type="date" name="data_falta" required>
+            <button type="submit">Registrar Falta</button>
+        </form>
+        <a href="{% url 'detalhes_aluno' aluno.id %}">Voltar</a>
+    </div>
+</body>
+</html>

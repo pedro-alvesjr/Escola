@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Faltas/Reposições</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef; /* Fundo mais suave */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15); /* Sombra mais suave */
+            text-align: center;
+        }
+        h1 {
+            color: #8B0000; /* Cor vinho */
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil no título */
+        }
+        h2 {
+            color: #006400; /* Verde escuro */
+            font-size: 1.5em;
+            margin-top: 0;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil no subtítulo */
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+        li {
+            background-color: #f8f9fa; /* Cor mais suave */
+            margin: 8px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            text-align: left;
+            border: 1px solid #ddd;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Efeito de hover */
+        }
+        li:hover {
+            background-color: #f1f1f1;
+            transform: scale(1.02); /* Aumenta ligeiramente no hover */
+        }
+        li a {
+            color: #007BFF; /* Azul */
+            text-decoration: none;
+        }
+        li a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 30px 0;
+            background-color: #8B0000; /* Cor vinho */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .button:hover {
+            background-color: #5c0000; /* Cor vinho escuro */
+            transform: scale(1.05); /* Aumenta no hover */
+        }
+        .footer {
+            color: #8B0000;
+            font-size: 0.9em;
+            margin-top: 40px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Faltas/Reposições</h1>
+        <h2>Lista de Alunos UFL</h2>
+
+        <ul>
+            {% for aluno in alunos %}
+                <li><a href="{% url 'detalhes_aluno' aluno.id %}">{{ aluno.nome }}</a></li>
+            {% empty %}
+                <li>Nenhum aluno cadastrado.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="#" class="button">Cadastrar Novo Aluno</a>
+    </div>
+
+    <div class="footer">
+        <p>Desenvolvido por Pedro Alves</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faltas de {{ aluno.nome }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #8B0000;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        a.button, button.ajax-button {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 15px 0;
+            color: white;
+            background-color: #8B0000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+        a.button:hover, button.ajax-button:hover {
+            background-color: #5c0000;
+            transform: scale(1.05);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+        li {
+            background-color: #f8f9fa;
+            margin: 8px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            text-align: left;
+            border: 1px solid #ddd;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        li:hover {
+            background-color: #f1f1f1;
+            transform: scale(1.02);
+        }
+        .reposicao {
+            color: green;
+            font-weight: bold;
+        }
+        .pendente {
+            color: red;
+        }
+        .footer {
+            color: #8B0000;
+            font-size: 0.9em;
+            margin-top: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Faltas de {{ aluno.nome }}</h1>
+        
+        <a href="{% url 'registrar_falta' aluno.id %}" class="button">Registrar nova falta</a>
+        
+        <ul>
+            {% for falta in faltas %}
+                <li id="falta-{{ falta.id }}">
+                    {{ falta.data_falta }} 
+                    {% if falta.respondida %}  <!-- Nome do campo corrigido -->
+                        <span class="reposicao">✅ Reposição Feita</span>
+                    {% else %}
+                        <button class="ajax-button" onclick="marcarReposicao('{{ falta.id }}')" id="btn-{{ falta.id }}">
+                            Marcar como Reposta
+                        </button>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>Nenhuma falta registrada.</li>
+            {% endfor %}
+        </ul>
+    
+        <a href="{% url 'lista_alunos' %}" class="button">Voltar para a lista de alunos</a>
+    </div>
+
+    <div class="footer">
+        <p>Desenvolvido por Pedro Alves</p>
+    </div>
+
+    <script>
+        function marcarReposicao(faltaId) {
+            fetch(`/falta/${faltaId}/reposicao_ajax/`, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    let button = document.getElementById(`btn-${faltaId}`);
+                    let faltaItem = document.getElementById(`falta-${faltaId}`);
+                    
+                    // Remove o botão e adiciona o texto ✅ Reposição Feita
+                    if (button) {
+                        button.remove();
+                    }
+                    faltaItem.innerHTML += ' <span class="reposicao">✅ Reposição Feita</span>';
+                }
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+    </script>
+</body>
+</html>
