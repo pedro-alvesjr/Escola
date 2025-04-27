@@ -73,14 +73,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+import os
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'escola_db',  # Nome do seu banco
-        'USER': 'postgres',  # Usuário do PostgreSQL
-        'PASSWORD': '@His1032',  # Sua senha do PostgreSQL
-        'HOST': 'localhost',  # Rodando localmente
-        'PORT': '5432',  # Porta padrão do PostgreSQL
+        'NAME': os.getenv('DB_NAME', 'escola_db'),  # Usa a variável DB_NAME ou o valor padrão 'escola_db'
+        'USER': os.getenv('DB_USER', 'postgres'),  # Usa a variável DB_USER ou o valor padrão 'postgres'
+        'PASSWORD': os.getenv('DB_PASSWORD', '@His1032'),  # Usa a variável DB_PASSWORD ou o valor padrão '@His1032'
+        'HOST': os.getenv('DB_HOST', 'localhost'),  # Usa a variável DB_HOST ou o valor padrão 'localhost'
+        'PORT': os.getenv('DB_PORT', '5432'),  # Usa a variável DB_PORT ou o valor padrão '5432'
     }
 }
 
