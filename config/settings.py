@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-&b8db3fe-h^a5pf&s@xw_vb@a4)4*@!-h99_bz*o6rkavui@7d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['escola-ib9k.onrender.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sistema', 
 ]
 
 MIDDLEWARE = [
@@ -125,13 +125,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'sistema',  # Adiciona o app 'sistema' aqui
-]
